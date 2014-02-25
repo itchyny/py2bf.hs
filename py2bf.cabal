@@ -1,5 +1,7 @@
 name:                   py2bf
 version:                0.0.0
+author:                 itchyny <https://github.com/itchyny>
+maintainer:             itchyny <https://github.com/itchyny>
 category:               Compiler
 build-type:             Simple
 cabal-version:          >=1.2
