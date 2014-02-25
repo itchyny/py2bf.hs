@@ -1,18 +1,18 @@
-Name:               py2bf
-Version:            0.0.0
-Category:           Compiler
-Build-Type:         Simple
-Cabal-Version:      >=1.2
+name:               py2bf
+version:            0.0.0
+category:           Compiler
+build-type:         Simple
+cabal-version:      >=1.2
 
 executable main
-  Hs-Source-Dirs:   src
-  Main-is:          py2bf.hs
-  Build-Depends:    base
+  hs-source-dirs:   src
+  main-is:          py2bf.hs
+  build-depends:    base
 
-Test-Suite spec
-  Hs-Source-Dirs:   test
-  Main-Is:          Spec.hs
-  Type:             exitcode-stdio-1.0
-  Build-Depends:    base
+test-suite spec
+  hs-source-dirs:   test
+  main-is:          Spec.hs
+  type:             exitcode-stdio-1.0
+  build-depends:    base
                   , hspec
 
