@@ -6,17 +6,26 @@ license:                MIT
 license-file:           LICENSE
 category:               Compiler
 build-type:             Simple
-cabal-version:          >=1.2
+cabal-version:          >=1.8
+
+library
+  build-depends:        base
+  ghc-options:          -O3 -Wall -Werror
+  exposed-modules:      Language.Brainfuck.Py2Bf
+                      , Language.Brainfuck.Py2Bf.Bfprim
 
 executable py2bf
   hs-source-dirs:       src
   main-is:              py2bf.hs
   build-depends:        base
+  ghc-options:          -O3 -Wall -Werror
 
 test-suite spec
   hs-source-dirs:       test
   main-is:              Spec.hs
   type:                 exitcode-stdio-1.0
+  ghc-options:          -Wall -Werror
   build-depends:        base
                       , hspec
-
+                      , QuickCheck
+                      , py2bf
