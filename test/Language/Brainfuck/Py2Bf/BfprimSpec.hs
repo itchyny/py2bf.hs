@@ -53,7 +53,7 @@ read_show_spec =
 
 isBfprimIO_spec :: Spec
 isBfprimIO_spec =
-  it "checks if contains an IO" $ do
+  it "checks if it contains IO instructions" $ do
     isBfprimIO (read "+") `shouldBe` False
     isBfprimIO (read "-") `shouldBe` False
     isBfprimIO (read ">") `shouldBe` False
@@ -62,6 +62,7 @@ isBfprimIO_spec =
     isBfprimIO (read ",") `shouldBe` True
     isBfprimIO (read "[+++><]") `shouldBe` False
     isBfprimIO (read "[+++>.<]") `shouldBe` True
+    isBfprimIO (read "[+++>[++++[+++><]<<<]]") `shouldBe` False
     isBfprimIO (read "[+++>[++++[+++,<]<<<]]") `shouldBe` True
 
 isBfWhile_spec :: Spec
@@ -75,3 +76,4 @@ isBfWhile_spec =
     isBfWhile (read "[++++]") `shouldBe` True
     isBfWhile (read "[-]") `shouldBe` True
     isBfWhile (read "[+++>+++>+++<.<.]") `shouldBe` True
+    isBfWhile (read "[+++>[[-]+]+>+++<.<.]") `shouldBe` True
