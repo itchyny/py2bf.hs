@@ -2,7 +2,6 @@ language: haskell
 ghc:
   - 7.6
   - 7.4
-  - 7.2
   - 7.0
 after_script:
   - cat dist/test/py2bf-0.0.0-spec.log
