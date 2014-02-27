@@ -17,8 +17,8 @@ spec = do
     read_spec
     read_list_spec
     read_show_spec
-    isBfprimIO_spec 
-    isBfWhile_spec 
+    isBfprimIO_spec
+    isBfWhile_spec
 
 read_spec :: Spec
 read_spec =
