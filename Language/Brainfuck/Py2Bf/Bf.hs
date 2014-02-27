@@ -1,6 +1,7 @@
 module Language.Brainfuck.Py2Bf.Bf
   ( Bf (..)
   , Bfcode (..)
+  , Bfpointer
   ) where
 
 import Data.List (intercalate)
@@ -18,6 +19,8 @@ instance Show Bfcode where
 
 instance Read Bfcode where
   readsPrec _ str = [(Bfcode (read str :: [Bfprim]), "")]
+
+type Bfpointer = Integer
 
 spl :: Int -> [a] -> [[a]]
 spl d xs | null rs   = [r]
