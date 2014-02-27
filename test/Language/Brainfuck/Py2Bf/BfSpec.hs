@@ -2,6 +2,7 @@ module Language.Brainfuck.Py2Bf.BfSpec where
 import Test.Hspec
 import Test.QuickCheck
 import Language.Brainfuck.Py2Bf.Bf
+import Language.Brainfuck.Py2Bf.Bfprim
 
 spec :: Spec
 spec = do
