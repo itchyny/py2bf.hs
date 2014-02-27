@@ -33,13 +33,13 @@ instance Read Bfprim where
   readList str = [(snd (parse str), "")]
 
 parse :: String -> (String, [Bfprim])
-parse ('+':bf) = (BfIncr:) <$> (parse bf)
-parse ('-':bf) = (BfDecr:) <$> (parse bf)
-parse ('>':bf) = (BfNext:) <$> (parse bf)
-parse ('<':bf) = (BfPrev:) <$> (parse bf)
-parse ('.':bf) = (BfPut:) <$> (parse bf)
-parse (',':bf) = (BfGet:) <$> (parse bf)
-parse ('[':bf) = (\(s, bff) -> (BfWhile bff:) <$> (parse s)) (parse bf)
+parse ('+':bf) = (BfIncr:) <$> parse bf
+parse ('-':bf) = (BfDecr:) <$> parse bf
+parse ('>':bf) = (BfNext:) <$> parse bf
+parse ('<':bf) = (BfPrev:) <$> parse bf
+parse ('.':bf) = (BfPut:) <$> parse bf
+parse (',':bf) = (BfGet:) <$> parse bf
+parse ('[':bf) = (\(s, bff) -> (BfWhile bff:) <$> parse s) (parse bf)
 parse (']':bf) = (bf, [])
 parse (_:bf)   = parse bf
 parse []       = ("", [])
