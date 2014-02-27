@@ -4,6 +4,9 @@ module Language.Brainfuck.Py2Bf.Bfprim
   , isBfWhile
   ) where
 
+import Data.Functor ((<$>))
+import Control.Monad.Instances ()
+
 data Bfprim = BfIncr
             | BfDecr
             | BfNext
@@ -30,19 +33,16 @@ instance Read Bfprim where
   readList str = [(snd (parse str), "")]
 
 parse :: String -> (String, [Bfprim])
-parse ('+':bf) = fm (BfIncr:) (parse bf)
-parse ('-':bf) = fm (BfDecr:) (parse bf)
-parse ('>':bf) = fm (BfNext:) (parse bf)
-parse ('<':bf) = fm (BfPrev:) (parse bf)
-parse ('.':bf) = fm (BfPut:) (parse bf)
-parse (',':bf) = fm (BfGet:) (parse bf)
-parse ('[':bf) = (\(s, bff) -> fm (BfWhile bff:) (parse s)) (parse bf)
+parse ('+':bf) = (BfIncr:) <$> (parse bf)
+parse ('-':bf) = (BfDecr:) <$> (parse bf)
+parse ('>':bf) = (BfNext:) <$> (parse bf)
+parse ('<':bf) = (BfPrev:) <$> (parse bf)
+parse ('.':bf) = (BfPut:) <$> (parse bf)
+parse (',':bf) = (BfGet:) <$> (parse bf)
+parse ('[':bf) = (\(s, bff) -> (BfWhile bff:) <$> (parse s)) (parse bf)
 parse (']':bf) = (bf, [])
 parse (_:bf)   = parse bf
 parse []       = ("", [])
-
-fm :: (b -> c) -> (a, b) -> (a, c)
-fm f (a, b) = (a, f b)
 
 isBfprimNonIO :: Bfprim -> Bool
 isBfprimNonIO BfPut = False
