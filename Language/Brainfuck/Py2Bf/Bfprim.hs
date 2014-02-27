@@ -1,6 +1,6 @@
 module Language.Brainfuck.Py2Bf.Bfprim
   ( Bfprim (..)
-  , isBfprimIO
+  , isBfprimNonIO
   , isBfWhile
   ) where
 
@@ -44,11 +44,11 @@ parse []       = ("", [])
 fm :: (b -> c) -> (a, b) -> (a, c)
 fm f (a, b) = (a, f b)
 
-isBfprimIO :: Bfprim -> Bool
-isBfprimIO BfPut = True
-isBfprimIO BfGet = True
-isBfprimIO (BfWhile bf) = any isBfprimIO bf
-isBfprimIO _ = False
+isBfprimNonIO :: Bfprim -> Bool
+isBfprimNonIO BfPut = False
+isBfprimNonIO BfGet = False
+isBfprimNonIO (BfWhile bf) = all isBfprimNonIO bf
+isBfprimNonIO _ = True
 
 isBfWhile :: Bfprim -> Bool
 isBfWhile (BfWhile _) = True

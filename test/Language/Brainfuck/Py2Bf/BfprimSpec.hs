@@ -17,7 +17,7 @@ spec = do
     read_spec
     read_list_spec
     read_show_spec
-    isBfprimIO_spec
+    isBfprimNonIO_spec
     isBfWhile_spec
 
 read_spec :: Spec
@@ -51,19 +51,19 @@ read_show_spec =
   it "read . show == id" $ do
     property (\bfprim -> read (show bfprim) == (bfprim :: Bfprim))
 
-isBfprimIO_spec :: Spec
-isBfprimIO_spec =
+isBfprimNonIO_spec :: Spec
+isBfprimNonIO_spec =
   it "checks if it contains IO instructions" $ do
-    isBfprimIO (read "+") `shouldBe` False
-    isBfprimIO (read "-") `shouldBe` False
-    isBfprimIO (read ">") `shouldBe` False
-    isBfprimIO (read "<") `shouldBe` False
-    isBfprimIO (read ".") `shouldBe` True
-    isBfprimIO (read ",") `shouldBe` True
-    isBfprimIO (read "[+++><]") `shouldBe` False
-    isBfprimIO (read "[+++>.<]") `shouldBe` True
-    isBfprimIO (read "[+++>[++++[+++><]<<<]]") `shouldBe` False
-    isBfprimIO (read "[+++>[++++[+++,<]<<<]]") `shouldBe` True
+    isBfprimNonIO (read "+") `shouldBe` True
+    isBfprimNonIO (read "-") `shouldBe` True
+    isBfprimNonIO (read ">") `shouldBe` True
+    isBfprimNonIO (read "<") `shouldBe` True
+    isBfprimNonIO (read ".") `shouldBe` False
+    isBfprimNonIO (read ",") `shouldBe` False
+    isBfprimNonIO (read "[+++><]") `shouldBe` True
+    isBfprimNonIO (read "[+++>.<]") `shouldBe` False
+    isBfprimNonIO (read "[+++>[++++[+++><]<<<]]") `shouldBe` True
+    isBfprimNonIO (read "[+++>[++++[+++,<]<<<]]") `shouldBe` False
 
 isBfWhile_spec :: Spec
 isBfWhile_spec =
