@@ -13,6 +13,7 @@ library
   ghc-options:          -O3 -Wall -Werror
   exposed-modules:      Language.Brainfuck.Py2Bf
                       , Language.Brainfuck.Py2Bf.Bfprim
+                      , Language.Brainfuck.Py2Bf.Bf
 
 executable py2bf
   hs-source-dirs:       src
