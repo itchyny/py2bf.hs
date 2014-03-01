@@ -5,6 +5,7 @@ module Language.Brainfuck.Py2Bf.Bfprim
   ) where
 
 import Data.Functor ((<$>))
+import Control.Monad.Instances ()
 
 data Bfprim = BfIncr
             | BfDecr
