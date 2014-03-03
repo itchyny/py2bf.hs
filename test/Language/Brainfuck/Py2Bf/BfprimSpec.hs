@@ -12,16 +12,16 @@ instance Arbitrary Bfprim where
       go n = oneof [ go 0, return BfWhile `ap` listOf (go (n `div` 8)) ]
 
 spec :: Spec
-spec = do
+spec =
   describe "Bfprim" $ do
-    read_spec
-    read_list_spec
-    read_show_spec
-    isBfprimNonIO_spec
-    isBfWhile_spec
+    readSpec
+    readListSpec
+    readShowSpec
+    isBfprimNonIOSpec
+    isBfWhileSpec
 
-read_spec :: Spec
-read_spec =
+readSpec :: Spec
+readSpec =
   it "reads Bfprim correctly" $ do
     read "+" `shouldBe` BfIncr
     read "-" `shouldBe` BfDecr
@@ -33,8 +33,8 @@ read_spec =
     read "[+]" `shouldBe` BfWhile [BfIncr]
     read "[-]" `shouldBe` BfWhile [BfDecr]
 
-read_list_spec :: Spec
-read_list_spec =
+readListSpec :: Spec
+readListSpec =
   it "reads [Bfprim] correctly" $ do
     read "+++" `shouldBe` [BfIncr, BfIncr, BfIncr]
     read "+-+" `shouldBe` [BfIncr, BfDecr, BfIncr]
@@ -46,13 +46,13 @@ read_list_spec =
         BfNext, BfPut ]
     read "[-]" `shouldBe` [BfWhile [BfDecr]]
 
-read_show_spec :: Spec
-read_show_spec =
-  it "read . show == id" $ do
+readShowSpec :: Spec
+readShowSpec =
+  it "read . show == id" $
     property (\bfprim -> read (show bfprim) == (bfprim :: Bfprim))
 
-isBfprimNonIO_spec :: Spec
-isBfprimNonIO_spec =
+isBfprimNonIOSpec :: Spec
+isBfprimNonIOSpec =
   it "checks if it contains IO instructions" $ do
     isBfprimNonIO (read "+") `shouldBe` True
     isBfprimNonIO (read "-") `shouldBe` True
@@ -65,8 +65,8 @@ isBfprimNonIO_spec =
     isBfprimNonIO (read "[+++>[++++[+++><]<<<]]") `shouldBe` True
     isBfprimNonIO (read "[+++>[++++[+++,<]<<<]]") `shouldBe` False
 
-isBfWhile_spec :: Spec
-isBfWhile_spec =
+isBfWhileSpec :: Spec
+isBfWhileSpec =
   it "checks if it is BfWhile" $ do
     isBfWhile (read "+") `shouldBe` False
     isBfWhile (read ">") `shouldBe` False

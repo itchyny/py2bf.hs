@@ -5,23 +5,23 @@ import Language.Brainfuck.Py2Bf.Bf
 import Language.Brainfuck.Py2Bf.Bfprim
 
 spec :: Spec
-spec = do
+spec =
   describe "Bf" $ do
-    show_spec
-    read_spec
-    skip_spec
-    show_read_spec
-    run_spec
+    showSpec
+    readSpec
+    skipSpec
+    showReadSpec
+    runSpec
 
-show_spec :: Spec
-show_spec =
-  it "shows Bfcode correctly" $ do
+showSpec :: Spec
+showSpec =
+  it "shows Bfcode correctly" $
     property (\n -> let m = n `mod` 1000 in
                         filter (/='\n') (show (Bfcode (replicate m BfIncr ++ [BfPut])))
                                                     == replicate m '+' ++ ".")
 
-read_spec :: Spec
-read_spec =
+readSpec :: Spec
+readSpec =
   it "reads Bfcode correctly" $ do
     read "+++" `shouldBe` Bfcode [BfIncr, BfIncr, BfIncr]
     read "---" `shouldBe` Bfcode [BfDecr, BfDecr, BfDecr]
@@ -35,8 +35,8 @@ read_spec =
         [BfIncr, BfIncr, BfIncr, BfDecr, BfDecr, BfDecr,
          BfNext, BfNext, BfNext, BfPrev, BfPrev, BfPrev]]
 
-skip_spec :: Spec
-skip_spec =
+skipSpec :: Spec
+skipSpec =
   it "skips whites" $ do
     read "   +   +   +   " `shouldBe`
       Bfcode [BfIncr, BfIncr, BfIncr]
@@ -47,8 +47,8 @@ skip_spec =
         [BfIncr, BfIncr, BfIncr, BfDecr, BfDecr, BfDecr,
          BfNext, BfNext, BfNext, BfPrev, BfPrev, BfPrev]]
 
-show_read_spec :: Spec
-show_read_spec =
+showReadSpec :: Spec
+showReadSpec =
   it "show . read" $ do
     show (read "" :: Bfcode) `shouldBe` ""
     show (read "[]" :: Bfcode) `shouldBe` ""
@@ -62,7 +62,7 @@ hello :: String
 hello = "+++++++++[->++++++++>+++++++++++>+++++<<<]>.>++.+++++++..+++.>-."
      ++ "------------.<++++++++.--------.+++.------.--------.>+."
 
-run_spec :: Spec
-run_spec =
-  it "runs correctly" $ do
+runSpec :: Spec
+runSpec =
+  it "runs correctly" $
     runString (read hello :: Bfcode) `shouldBe` "Hello, world!"
