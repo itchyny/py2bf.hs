@@ -11,6 +11,7 @@ spec = do
     read_spec
     skip_spec
     show_read_spec
+    run_spec
 
 show_spec :: Spec
 show_spec =
@@ -56,3 +57,12 @@ show_read_spec =
     show (read "+++[>+++<-]>" :: Bfcode) `shouldBe` ""
     show (read "+++[>+++<-]>." :: Bfcode) `shouldBe` "+++[>+++<-]>."
     show (read "+++[>+++<-][>>][<<][++]>." :: Bfcode) `shouldBe` "+++[>+++<-]>."
+
+hello :: String
+hello = "+++++++++[->++++++++>+++++++++++>+++++<<<]>.>++.+++++++..+++.>-."
+     ++ "------------.<++++++++.--------.+++.------.--------.>+."
+
+run_spec :: Spec
+run_spec =
+  it "runs correctly" $ do
+    runString (read hello :: Bfcode) `shouldBe` "Hello, world!"

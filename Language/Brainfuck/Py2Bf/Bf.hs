@@ -1,3 +1,4 @@
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 module Language.Brainfuck.Py2Bf.Bf
   ( Bf (..)
   , Bfcode (..)
@@ -5,11 +6,17 @@ module Language.Brainfuck.Py2Bf.Bf
   ) where
 
 import Data.List (intercalate)
+import Codec.Binary.UTF8.String (decode)
 import Language.Brainfuck.Py2Bf.Bfprim
 
 class Bf a where
   convert :: a -> Bfcode
-  upconvert :: Bfcode -> a
+  runIO :: a -> IO ()
+  runIO = runIO . convert
+  runString :: a -> String
+  runString = runString . convert
+  run :: a -> Either String BfState
+  run = run . convert
 
 data Bfcode = Bfcode [Bfprim]
             deriving Eq
@@ -19,6 +26,18 @@ instance Show Bfcode where
 
 instance Read Bfcode where
   readsPrec _ str = [(Bfcode (read str :: [Bfprim]), "")]
+
+instance Bf Bfcode where
+  convert = id
+  runIO (Bfcode bf) = runPrimIO bf ([], 0, [], [], [])
+          >>= \(_, _, _, os, _) -> putStrLn (decode os)
+  runString bf = case run bf of
+                      Left err -> err
+                      Right (_, _, _, os, _) -> decode os
+  run (Bfcode bf) = runPrim bf ([], 0, [], [], [])
+
+instance Bf String where
+  convert = read
 
 type Bfpointer = Integer
 
