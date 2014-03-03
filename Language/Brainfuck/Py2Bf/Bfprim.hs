@@ -97,7 +97,9 @@ runPrimIO (BfPut:bf) (xs, x, ys, os, is)
         l = length os
         h = head os
 runPrimIO (BfGet:bf) (xs, _, ys, os, [])    = encode . return <$> getChar >>=
-                                   \(i:is) -> runPrimIO bf (xs, i, ys, os, is)
+                         \inp -> case inp of
+                                      []   -> runPrimIO bf (xs, 0, ys, os, [])
+                                      i:is -> runPrimIO bf (xs, i, ys, os, is)
 runPrimIO (BfGet:bf) (xs, _, ys, os, i:is)  = runPrimIO bf (xs, i, ys, os, is)
 runPrimIO [] s                              = return s
 
