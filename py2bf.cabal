@@ -10,11 +10,13 @@ cabal-version:          >=1.8
 
 library
   build-depends:        base
+                      , containers
                       , utf8-string
   ghc-options:          -O3 -Wall -Werror
   exposed-modules:      Language.Brainfuck.Py2Bf
                       , Language.Brainfuck.Py2Bf.Bfprim
                       , Language.Brainfuck.Py2Bf.Bf
+                      , Language.Brainfuck.Py2Bf.Bfpointer
 
 executable py2bf
   hs-source-dirs:       src
