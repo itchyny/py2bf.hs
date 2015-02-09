@@ -12,6 +12,7 @@ library
   build-depends:        base
                       , containers
                       , utf8-string
+                      , language-python
   ghc-options:          -O3 -Wall -Werror
   exposed-modules:      Language.Brainfuck.Py2Bf
                       , Language.Brainfuck.Py2Bf.Bfprim
@@ -22,6 +23,7 @@ executable py2bf
   hs-source-dirs:       src
   main-is:              py2bf.hs
   build-depends:        base
+                      , language-python
   ghc-options:          -O3 -Wall -Werror
 
 test-suite spec
@@ -33,3 +35,4 @@ test-suite spec
                       , hspec
                       , QuickCheck
                       , py2bf
+                      , language-python
