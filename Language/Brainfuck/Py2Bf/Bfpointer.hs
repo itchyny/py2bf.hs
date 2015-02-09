@@ -5,7 +5,6 @@ module Language.Brainfuck.Py2Bf.Bfpointer
   where
 
 import Data.Functor ((<$>))
-import Control.Monad.Instances ()
 import Language.Brainfuck.Py2Bf.Bf
 import Language.Brainfuck.Py2Bf.Bfprim
 

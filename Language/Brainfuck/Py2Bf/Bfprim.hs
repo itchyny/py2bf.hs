@@ -10,7 +10,6 @@ module Language.Brainfuck.Py2Bf.Bfprim
 import Data.Word (Word8)
 import Data.Functor ((<$>))
 import Codec.Binary.UTF8.String (decode, encode)
-import Control.Monad.Instances ()
 
 data Bfprim = BfIncr
             | BfDecr
